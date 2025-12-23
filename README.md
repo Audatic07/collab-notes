@@ -130,35 +130,65 @@ collab-notes/
 
 ## ☁️ Deployment
 
-### Deploy to Railway (Backend)
+> **Deployment Order:** GitHub → Railway (backend) → Vercel (frontend) → Update Railway → GitHub OAuth
 
-1. Connect your GitHub repo at [railway.app](https://railway.app)
-2. Set root directory to `backend`
-3. Add PostgreSQL database
-4. Configure environment variables:
-   ```env
-   JWT_SECRET=your-secret-key
-   FRONTEND_URL=https://your-app.vercel.app
-   GITHUB_CLIENT_ID=your-client-id
-   GITHUB_CLIENT_SECRET=your-client-secret
+### Step 1: Push to GitHub
+
+```bash
+# Create repo at github.com/new, then:
+git remote add origin https://github.com/YOUR_USERNAME/collab-notes.git
+git branch -M main
+git push -u origin main
+```
+
+### Step 2: Deploy Backend (Railway)
+
+1. Go to [railway.app](https://railway.app) → Sign in with GitHub
+2. **New Project** → **Deploy from GitHub repo** → Select `collab-notes`
+3. Click the service → **Settings** → Set **Root Directory**: `backend`
+4. **New** → **Database** → **Add PostgreSQL**
+5. Backend service → **Variables** tab → Add:
    ```
-5. Set build command: `npm run db:use-postgres && npm run db:generate && npm run build`
-6. Set start command: `npm run db:push && npm start`
+   JWT_SECRET=your-random-secret-at-least-32-chars
+   ```
+6. **Settings** → **Deploy**:
+   - Build: `npm run db:use-postgres && npm run db:generate && npm run build`
+   - Start: `npm run db:push && npm start`
+7. **Settings** → **Networking** → **Generate Domain** → 📋 Copy URL
 
-### Deploy to Vercel (Frontend)
+### Step 3: Deploy Frontend (Vercel)
 
-1. Import repo at [vercel.com](https://vercel.com)
-2. Set root directory to `frontend`
-3. Add environment variable:
-   ```env
-   VITE_API_URL=https://your-backend.railway.app
+1. Go to [vercel.com](https://vercel.com) → Sign in with GitHub  
+2. **Add New** → **Project** → Import `collab-notes`
+3. Set **Root Directory**: `frontend`
+4. **Environment Variables**:
+   ```
+   VITE_API_URL=https://your-railway-url-from-step-2
+   ```
+5. **Deploy** → 📋 Copy your Vercel URL
+
+### Step 4: Connect Frontend to Backend
+
+Go to Railway → backend → **Variables** → Add:
+```
+FRONTEND_URL=https://your-vercel-url-from-step-3
+```
+
+### Step 5: GitHub OAuth (Optional)
+
+1. [github.com/settings/developers](https://github.com/settings/developers) → **New OAuth App**
+2. **Homepage URL**: `https://your-vercel-url`
+3. **Callback URL**: `https://your-railway-url/api/auth/github/callback`
+4. Copy Client ID + generate Client Secret
+5. Add to Railway **Variables**:
+   ```
+   GITHUB_CLIENT_ID=xxx
+   GITHUB_CLIENT_SECRET=xxx
    ```
 
-### Setup GitHub OAuth
+### ✅ Done!
 
-1. Create OAuth App at [github.com/settings/developers](https://github.com/settings/developers)
-2. Set callback URL: `https://your-backend.railway.app/api/auth/github/callback`
-3. Add credentials to Railway environment variables
+Your app is live! Share your Vercel URL with friends.
 
 ## 🛠️ Tech Stack
 

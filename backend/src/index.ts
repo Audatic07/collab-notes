@@ -42,8 +42,8 @@ setupSocketServer(httpServer, env.FRONTEND_URL);
 
 // Start server
 const PORT = parseInt(env.PORT);
-httpServer.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
+httpServer.listen(PORT, '0.0.0.0', () => {
+  console.log(`🚀 Server running on port ${PORT}`);
   console.log(`📡 WebSocket server ready`);
   console.log(`🌐 CORS enabled for: ${env.FRONTEND_URL}`);
 });
