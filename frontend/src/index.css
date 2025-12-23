@@ -1,0 +1,625 @@
+/* Global styles for CollabNotes */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --primary: #3b82f6;
+  --primary-hover: #2563eb;
+  --danger: #ef4444;
+  --success: #22c55e;
+  --gray-50: #f9fafb;
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-300: #d1d5db;
+  --gray-400: #9ca3af;
+  --gray-600: #4b5563;
+  --gray-800: #1f2937;
+  --gray-900: #111827;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, sans-serif;
+  background-color: var(--gray-50);
+  color: var(--gray-900);
+  line-height: 1.6;
+}
+
+/* Loading state */
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 1.2rem;
+  color: var(--gray-600);
+}
+
+/* Error messages */
+.error-message {
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  color: var(--danger);
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  gap: 1rem;
+}
+
+/* ============================================
+   AUTH PAGES (Login/Register)
+   ============================================ */
+
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 1rem;
+}
+
+.auth-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+.auth-card h1 {
+  font-size: 1.75rem;
+  margin-bottom: 0.25rem;
+}
+
+.auth-card .subtitle {
+  color: var(--gray-600);
+  margin-bottom: 1.5rem;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--gray-800);
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--gray-300);
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.auth-footer {
+  text-align: center;
+  margin-top: 1.5rem;
+  color: var(--gray-600);
+}
+
+.auth-footer a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+/* GitHub OAuth button */
+.btn-github {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1.5rem;
+  background-color: #24292e;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-github:hover {
+  background-color: #1b1f23;
+}
+
+.btn-github svg {
+  flex-shrink: 0;
+}
+
+/* Auth divider */
+.auth-divider {
+  display: flex;
+  align-items: center;
+  margin: 1.25rem 0;
+  color: var(--gray-400);
+  font-size: 0.875rem;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background-color: var(--gray-200);
+}
+
+.auth-divider span {
+  padding: 0 1rem;
+}
+
+/* ============================================
+   BUTTONS
+   ============================================ */
+
+.btn-primary {
+  width: 100%;
+  padding: 0.75rem 1.5rem;
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: var(--primary-hover);
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  padding: 0.5rem 1rem;
+  background-color: var(--gray-100);
+  color: var(--gray-800);
+  border: 1px solid var(--gray-300);
+  border-radius: 8px;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-secondary:hover {
+  background-color: var(--gray-200);
+}
+
+/* ============================================
+   NOTES LIST PAGE
+   ============================================ */
+
+.notes-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.notes-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.header-left h1 {
+  font-size: 1.75rem;
+}
+
+.user-info {
+  color: var(--gray-600);
+  font-size: 0.875rem;
+}
+
+.header-right {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.header-right .btn-primary {
+  width: auto;
+}
+
+.share-info {
+  background-color: #dbeafe;
+  border: 1px solid #93c5fd;
+  color: #1e40af;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  font-size: 0.875rem;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: var(--gray-600);
+}
+
+.notes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.note-card {
+  display: block;
+  background: white;
+  padding: 1.25rem;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+  text-decoration: none;
+  color: inherit;
+  transition: box-shadow 0.2s, transform 0.2s;
+  position: relative;
+}
+
+.note-card:hover {
+  box-shadow: 0 4px 12px rgb(0 0 0 / 0.15);
+  transform: translateY(-2px);
+}
+
+.note-card h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  color: var(--gray-900);
+}
+
+.note-date {
+  font-size: 0.8rem;
+  color: var(--gray-600);
+}
+
+.delete-btn {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s;
+  font-size: 1rem;
+}
+
+.note-card:hover .delete-btn {
+  opacity: 1;
+}
+
+.delete-btn:hover {
+  transform: scale(1.1);
+}
+
+/* ============================================
+   NOTE EDITOR PAGE
+   ============================================ */
+
+.editor-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: white;
+}
+
+.editor-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1.5rem;
+  border-bottom: 1px solid var(--gray-200);
+  background: white;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex: 1;
+}
+
+.back-link {
+  color: var(--gray-600);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.back-link:hover {
+  color: var(--primary);
+}
+
+.title-input {
+  font-size: 1.25rem;
+  font-weight: 600;
+  border: none;
+  outline: none;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  flex: 1;
+  min-width: 200px;
+}
+
+.title-input:focus {
+  background: var(--gray-100);
+}
+
+.title-input:disabled {
+  background: transparent;
+  color: var(--gray-800);
+}
+
+.saving-indicator {
+  color: var(--gray-600);
+  font-size: 0.875rem;
+}
+
+.update-indicator {
+  color: var(--success);
+  font-size: 0.875rem;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.viewer-banner {
+  background-color: #fef3c7;
+  border-bottom: 1px solid #fcd34d;
+  color: #92400e;
+  padding: 0.5rem 1.5rem;
+  font-size: 0.875rem;
+}
+
+/* ============================================
+   EDITOR TOOLBAR
+   ============================================ */
+
+.editor-toolbar {
+  display: flex;
+  gap: 0.25rem;
+  padding: 0.5rem 1.5rem;
+  border-bottom: 1px solid var(--gray-200);
+  background: var(--gray-50);
+  flex-wrap: wrap;
+}
+
+.editor-toolbar button {
+  padding: 0.4rem 0.75rem;
+  background: white;
+  border: 1px solid var(--gray-300);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: all 0.15s;
+}
+
+.editor-toolbar button:hover:not(:disabled) {
+  background: var(--gray-100);
+}
+
+.editor-toolbar button.active {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+.editor-toolbar button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.toolbar-divider {
+  color: var(--gray-300);
+  padding: 0 0.25rem;
+  display: flex;
+  align-items: center;
+}
+
+/* ============================================
+   TIPTAP EDITOR
+   ============================================ */
+
+.editor-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.5rem;
+}
+
+.editor-content .tiptap {
+  outline: none;
+  min-height: 100%;
+}
+
+.editor-content .tiptap p {
+  margin-bottom: 0.75rem;
+}
+
+.editor-content .tiptap h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.editor-content .tiptap h2 {
+  font-size: 1.5rem;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+}
+
+.editor-content .tiptap ul,
+.editor-content .tiptap ol {
+  padding-left: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.editor-content .tiptap li {
+  margin-bottom: 0.25rem;
+}
+
+.editor-content .tiptap code {
+  background: var(--gray-100);
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-family: 'Fira Code', monospace;
+  font-size: 0.9em;
+}
+
+.editor-content .tiptap pre {
+  background: var(--gray-800);
+  color: white;
+  padding: 1rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin-bottom: 0.75rem;
+}
+
+.editor-content .tiptap pre code {
+  background: none;
+  padding: 0;
+  color: inherit;
+}
+
+.editor-content .tiptap blockquote {
+  border-left: 3px solid var(--gray-300);
+  padding-left: 1rem;
+  color: var(--gray-600);
+  margin-bottom: 0.75rem;
+}
+
+/* Placeholder */
+.editor-content .tiptap p.is-editor-empty:first-child::before {
+  color: var(--gray-400);
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
+
+/* ============================================
+   PRESENCE INDICATOR
+   ============================================ */
+
+.presence-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.presence-avatars {
+  display: flex;
+}
+
+.presence-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+  font-size: 0.8rem;
+  border: 2px solid white;
+  margin-left: -8px;
+}
+
+.presence-avatar:first-child {
+  margin-left: 0;
+}
+
+.presence-more {
+  background: var(--gray-400);
+  font-size: 0.7rem;
+}
+
+.presence-text {
+  color: var(--gray-600);
+  font-size: 0.875rem;
+  white-space: nowrap;
+}
+
+/* ============================================
+   EDITOR FOOTER
+   ============================================ */
+
+.editor-footer {
+  padding: 0.5rem 1.5rem;
+  border-top: 1px solid var(--gray-200);
+  background: var(--gray-50);
+  font-size: 0.75rem;
+  color: var(--gray-600);
+}
+
+.editor-footer code {
+  background: var(--gray-200);
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+  font-family: monospace;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 640px) {
+  .notes-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .header-right {
+    flex-direction: column;
+  }
+
+  .editor-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .header-left {
+    flex-wrap: wrap;
+  }
+
+  .title-input {
+    width: 100%;
+  }
+}

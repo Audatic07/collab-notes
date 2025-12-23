@@ -1,0 +1,46 @@
+// Prisma Schema for Collaborative Notes App
+// Supports both SQLite (dev) and PostgreSQL (production)
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  // Use "sqlite" for local dev, "postgresql" for Railway/production
+  // Change provider and DATABASE_URL format when deploying
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// User model - stores authentication info
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String?  // Nullable for OAuth users
+  name      String
+  avatarUrl String?  // Profile picture from OAuth provider
+  provider  String   @default("local") // "local" or "github"
+  providerId String? // GitHub user ID for OAuth users
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relation: A user can own many notes
+  notes Note[]
+}
+
+// Note model - stores the collaborative documents
+model Note {
+  id        String   @id @default(uuid())
+  title     String
+  content   String   @default("{}") // TipTap JSON stored as string
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relation: Each note belongs to one owner
+  ownerId String
+  owner   User   @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+
+  // Index for faster queries by owner
+  @@index([ownerId])
+}
+

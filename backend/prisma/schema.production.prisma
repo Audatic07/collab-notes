@@ -1,0 +1,40 @@
+// Prisma Schema for Production (PostgreSQL on Railway)
+// For local dev, use schema.prisma (SQLite)
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// User model - stores authentication info
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String?  // Nullable for OAuth users
+  name      String
+  avatarUrl String?  // Profile picture from OAuth provider
+  provider  String   @default("local") // "local" or "github"
+  providerId String? // GitHub user ID for OAuth users
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relation: A user can own many notes
+  notes Note[]
+}
+
+// Note model - stores the collaborative documents
+model Note {
+  id        String   @id @default(uuid())
+  title     String
+  content   String   @default("") // TipTap JSON stored as string
+  ownerId   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relation: Each note belongs to one user
+  owner User @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+}
